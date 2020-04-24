@@ -1,0 +1,30 @@
+{
+  "name": "walterbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelPavlovic/DiscordBot-V12"
+  },
+  "author": "Michael",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/opus": "^0.1.0",
+    "bufferutil": "^4.0.1",
+    "common-tags": "^1.8.0",
+    "dateformat": "^3.0.3",
+    "discord.js": "^12.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "random-puppy": "^1.1.0",
+    "simple-youtube-api": "^5.2.1",
+    "urban": "^0.3.2",
+    "ytdl-core": "^2.1.1",
+    "ytdl-core-discord": "^1.2.0"
+  }
+}
