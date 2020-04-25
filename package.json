@@ -12,6 +12,9 @@
   },
   "author": "Michael",
   "license": "ISC",
+  "engines": { 
+    "node": "12.x" 
+  },
   "dependencies": {
     "@discordjs/opus": "^0.1.0",
     "bufferutil": "^4.0.1",
@@ -20,7 +23,6 @@
     "discord.js": "^12.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "node": "^12.16.1",
     "node-fetch": "^2.6.0",
     "novelcovid": "^1.2.7",
     "random-puppy": "^1.1.0",
