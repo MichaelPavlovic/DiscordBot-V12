@@ -2,7 +2,7 @@
 
 For fun project to experiment with the discord.js library and some other libraries/apis.
 
-### Required packages
+### Packages Used
 
 - discord.js
 - common-tags
@@ -11,6 +11,11 @@ For fun project to experiment with the discord.js library and some other librari
 - node-fetch
 - random-puppy
 - urban
+- dotenv
+- @discordjs/opus
+- ytdl-core
+- ytdl-core-discord
+- simple-youtube-api
 
 ### Hosting
 
