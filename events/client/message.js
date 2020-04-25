@@ -18,7 +18,7 @@ module.exports = async (client, message) => {
         message.channel.send('cool');
     }
     if(message.content.startsWith('wah')){
-        message.channel.send('wah');
+        message.channel.send('wah wah wah');
     }
 
     if(!message.content.startsWith(PREFIX)) return; //if the message does not start with the prefix return
