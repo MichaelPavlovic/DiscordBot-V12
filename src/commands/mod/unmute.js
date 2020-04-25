@@ -10,7 +10,7 @@ module.exports = {
                 if(member.hasPermission(['KICK_MEMBERS', 'BAN_MEMBERS']) && !message.member.hasPermission('ADMINISTRATOR')){
                     message.channel.send("You can't unmute that person.");
                 } else {
-                    let mutedRole = message.guild.roles.cache.get('703041841846681631');
+                    let mutedRole = message.guild.roles.cache.get('435186879407849482');
                     if(mutedRole) {
                         member.roles.remove(mutedRole);
                         message.channel.send("User was unmuted.");
@@ -24,9 +24,9 @@ module.exports = {
         }
     },
     config: {
-        name: 'mute',
-        description: 'Bans a member',
-        usage: '!mute [user]',
+        name: 'unmute',
+        description: 'Unmutes a member',
+        usage: '!unmute [user]',
         category: 'mod',
         accessableby: 'Moderators',
         aliases: []

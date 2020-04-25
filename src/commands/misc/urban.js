@@ -5,15 +5,17 @@ const urban = require('urban');
 
 module.exports = {
     run: async (client, message, args, owner) => {
-        if(!args[0]) return message.channel.send('Enter a word to search for!');
+        if(!args[0]) return message.channel.send('Enter a word to search for.');
       
-        let img = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTxeXc6CDMTuda_avVhbE95cPJ2QMoKLxNbHR5pvyUoB0a_y-fl';
+        const img = 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTxeXc6CDMTuda_avVhbE95cPJ2QMoKLxNbHR5pvyUoB0a_y-fl';
       
-        let search = urban(args[0]);
+        let msg = args.slice(0).join(' ');
+
+        let search = urban(msg);
         
         try{
             search.first(result => {
-                if(!result) return message.channel.send('No results forund!');
+                if(!result) return message.channel.send('No results found!');
 
                 let { word, definition, example, thumbs_up, thumbs_down, permalink, author } = result;
 
