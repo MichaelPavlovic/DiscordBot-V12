@@ -1,12 +1,12 @@
-const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
 const ytdl = require("ytdl-core");
-const YoutubeAPI = require("simple-youtube-api");
-const youtube = new YoutubeAPI(YOUTUBE_API_KEY);
-const { play } = require("../../utils/music") ;
+const ytsr = require("ytsr");
+const { play } = require("../../utils/music");
+const { MessageEmbed } = require('discord.js');
+const { red_light } = require("../../colours.json");
 
 module.exports = {
     run: async(client, message, args, owner) => {
-        if (!args.length) {
+        if(!args.length){
             return message.channel.send("**You have to search for a song!**");
         }
           
@@ -55,28 +55,36 @@ module.exports = {
             }
         } else{
             try{
-                const result = await youtube.searchVideos(targetsong, 1)
-                songData = await ytdl.getInfo(result[0].url)
+                let options = { limit: 1 }
+                const result = await ytsr(targetsong, options);
+                songData = await ytdl.getInfo(result.items[0].link);
                 song = {
                     title: songData.title,
                     url: songData.video_url,
                     duration: songData.length_seconds
                 };
             } catch(error){
-                console.error(error)
+                console.error(error);
             }
         }
           
-        if(serverQueue) {
-            serverQueue.songs.push(song)
-            return serverQueue.textChannel.send(`\`${song.title}\` added to queue!`).catch(console.error);
+        if(serverQueue){
+            serverQueue.songs.push(song);
+            let embed = new MessageEmbed()
+                .setColor(red_light)
+                .setTitle(':musical_note: Song Request')
+                .setDescription(`\`${song.title}\` added to queue!`)
+                .addField('Duration', `${song.duration}`, true)
+                .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
+
+            return serverQueue.textChannel.send(embed).catch(console.error);
         } else{
             queueConstruct.songs.push(song);
         }
           
-        if(!serverQueue) message.client.queue.set(message.guild.id, queueConstruct)
+        if(!serverQueue) message.client.queue.set(message.guild.id, queueConstruct);
           
-        if(!serverQueue) {
+        if(!serverQueue){
             try{
                 queueConstruct.connection = await channel.join();
                 play(queueConstruct.songs[0], message);

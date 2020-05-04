@@ -1,3 +1,6 @@
+const { MessageEmbed } = require('discord.js');
+const { red_light } = require("../../colours.json");
+
 module.exports = {
     run: async(client, message, args, owner) => {
         const { channel } = message.member.voice;
@@ -12,7 +15,13 @@ module.exports = {
             return message.channel.send("**The queue is empty.**");
         }
 
-        message.channel.send(`${serverQueue.songs.map((song, index) => index + 1 + ". " + song.title).join("\n\n")}`,{ split: true });
+        let embed = new MessageEmbed()
+            .setColor(red_light)
+            .setTitle('Music Queue')
+            .setDescription(`${serverQueue.songs.map((song, index) => index + 1 + ". " + `[${song.title}](${song.url})`).join("\n\n")}`,{ split: true })
+            .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
+
+        message.channel.send(embed);
     },
     config: {
         name: 'queue',

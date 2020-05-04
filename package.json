@@ -12,8 +12,8 @@
   },
   "author": "Michael",
   "license": "ISC",
-  "engines": { 
-    "node": "12.x" 
+  "engines": {
+    "node": "12.x"
   },
   "dependencies": {
     "@discordjs/opus": "^0.1.0",
@@ -29,6 +29,7 @@
     "simple-youtube-api": "^5.2.1",
     "urban": "^0.3.2",
     "ytdl-core": "^2.1.1",
-    "ytdl-core-discord": "^1.2.0"
+    "ytdl-core-discord": "^1.2.0",
+    "ytsr": "^0.1.13"
   }
 }

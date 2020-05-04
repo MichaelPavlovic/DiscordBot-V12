@@ -1,3 +1,6 @@
+const { MessageEmbed } = require('discord.js');
+const { red_light } = require("../../colours.json");
+
 module.exports = {
     run: async(client, message, args, owner) => {
         const { channel } = message.member.voice;
@@ -12,7 +15,14 @@ module.exports = {
             return message.channel.send("**Nothing playing.**");
         }
         
-        message.channel.send(serverQueue.songs[0].title);
+        let embed = new MessageEmbed()
+            .setColor(red_light)
+            .setTitle(':musical_note: **Now Playing**')
+            .setDescription(`[${serverQueue.songs[0].title}](${serverQueue.songs[0].url})`)
+            .addField('Duration', `${serverQueue.songs[0].duration}`, true)
+            .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
+
+        message.channel.send(embed);
     },
     config: {
         name: 'np',

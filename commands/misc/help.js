@@ -36,8 +36,6 @@ module.exports = {
                 }
             });
 
-            message.delete();
-
             return message.channel.send(help);
         } else{
             let command = client.commands.get(client.aliases.get(args[0].toLowerCase()) || args[0].toLowerCase());
@@ -56,8 +54,6 @@ module.exports = {
             **Usage:** ${command.usage ? `\`${command.usage}\`` : "No usage"}
             **Accessible by:** ${command.accessableby || "Members"}
             **Aliases:** ${command.aliases ? command.aliases.join(", ") : "None"}`);
-
-            message.delete();
 
             return message.channel.send(help);
         }

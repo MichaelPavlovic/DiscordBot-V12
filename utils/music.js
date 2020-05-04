@@ -1,4 +1,6 @@
 const ytdlDiscord = require("ytdl-core-discord");
+const { MessageEmbed } = require('discord.js');
+const { red_light } = require("../colours.json");
 
 module.exports = {
     async play(song, message) {
@@ -37,6 +39,12 @@ module.exports = {
 
         dispatcher.setVolumeLogarithmic(queue.volume / 100);
         
-        queue.textChannel.send(`:musical_note: **Now Playing** - [${song.title}](${song.url})`);
+        let embed = new MessageEmbed()
+            .setColor(red_light)
+            .setTitle(':musical_note: **Now Playing**')
+            .setDescription(`[${song.title}](${song.url})`)
+            .setFooter(`© ${message.guild.me.displayName}`, message.client.user.displayAvatarURL());
+
+        queue.textChannel.send(embed);
     }
 }
