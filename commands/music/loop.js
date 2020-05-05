@@ -14,7 +14,7 @@ module.exports = {
 
         serverQueue.loop = !serverQueue.loop;
         
-        message.channel.send(`Loop is now: **${serverQueue.loop ? "Enabled" : "Disabled"}**`);
+        message.channel.send(`**Loop is now: ${serverQueue.loop ? "Enabled" : "Disabled"}**`);
     },
     config: {
         name: 'loop',

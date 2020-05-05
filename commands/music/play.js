@@ -1,5 +1,6 @@
 const ytdl = require("ytdl-core");
 const ytsr = require("ytsr");
+const ytpl = require("ytpl");
 const { play } = require("../../utils/music");
 const { MessageEmbed } = require('discord.js');
 const { red_light } = require("../../colours.json");
@@ -17,13 +18,6 @@ module.exports = {
         }
       
         const targetsong = args.join(" ");
-        const videoPattern = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
-        const playlistPattern = /^.*(youtu.be\/|list=)([^#\&\?]*).*/gi;
-        const urlcheck = videoPattern.test(args[0]);
-      
-        if(!videoPattern.test(args[0]) && playlistPattern.test(args[0])){
-            return message.channel.send("Unable to play playlist.");
-        }
       
         const serverQueue = message.client.queue.get(message.guild.id);
       
@@ -40,9 +34,9 @@ module.exports = {
         let songData = null;
         let song = null;
       
-        //check if the parameter matches a youtube url
+        //check if the parameter matches a youtube url or playlist url
         //else try to search youtube for the parameter
-        if(urlcheck){
+        if(ytdl.validateURL(args[0])){
             try{
                 songData = await ytdl.getInfo(args[0]);
                 song = {
@@ -50,8 +44,51 @@ module.exports = {
                     url: songData.video_url,
                     duration: songData.length_seconds
                 };
+
+                if(serverQueue){
+                    serverQueue.songs.push(song);
+                    let embed = new MessageEmbed()
+                        .setColor(red_light)
+                        .setTitle(':musical_note: Song Request :musical_note:')
+                        .setDescription(`[${song.title}](${song.url}) added to queue!`)
+                        .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
+        
+                    message.channel.send(embed).catch(console.error);
+                } else{
+                    queueConstruct.songs.push(song);
+                }
             } catch(error){
                 console.error(error);
+            }
+        } else if(ytpl.validateURL(args[0])){
+            try{
+                const playlistID = await ytpl.getPlaylistID(args[0]);
+                const results = await ytpl(playlistID);
+                for(let i = 0; i < results.items.length; i++){
+                    songData = await ytdl.getInfo(results.items[i].url_simple);
+                    song = {
+                        title: songData.title,
+                        url: songData.video_url,
+                        duration: songData.length_seconds
+                    };
+                    if(serverQueue){
+                        serverQueue.songs.push(song);
+                        
+                    } else{
+                        queueConstruct.songs.push(song);
+                    }
+                }
+
+                let embed = new MessageEmbed()
+                    .setColor(red_light)
+                    .setTitle(':musical_note: Playlist Request :musical_note:')
+                    .setDescription(`[${results.title}](${results.url}) added to queue!`)
+                    .addField('Songs', `${results.total_items}`, true)
+                    .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
+            
+                message.channel.send(embed).catch(console.error);
+            } catch(error){
+                console.log(error)
             }
         } else{
             try{
@@ -63,23 +100,22 @@ module.exports = {
                     url: songData.video_url,
                     duration: songData.length_seconds
                 };
+
+                if(serverQueue){
+                    serverQueue.songs.push(song);
+                    let embed = new MessageEmbed()
+                        .setColor(red_light)
+                        .setTitle(':musical_note: Song Request :musical_note:')
+                        .setDescription(`[${song.title}](${song.url}) added to queue!`)
+                        .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
+        
+                    message.channel.send(embed).catch(console.error);
+                } else{
+                    queueConstruct.songs.push(song);
+                }
             } catch(error){
                 console.error(error);
             }
-        }
-          
-        if(serverQueue){
-            serverQueue.songs.push(song);
-            let embed = new MessageEmbed()
-                .setColor(red_light)
-                .setTitle(':musical_note: Song Request')
-                .setDescription(`\`${song.title}\` added to queue!`)
-                .addField('Duration', `${song.duration}`, true)
-                .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
-
-            return serverQueue.textChannel.send(embed).catch(console.error);
-        } else{
-            queueConstruct.songs.push(song);
         }
           
         if(!serverQueue) message.client.queue.set(message.guild.id, queueConstruct);

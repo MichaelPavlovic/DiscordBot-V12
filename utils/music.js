@@ -9,7 +9,7 @@ module.exports = {
         if(!song){
             queue.channel.leave();
             message.client.queue.delete(message.guild.id);
-            return queue.textChannel.send("Music queue is finished.").catch(console.error);
+            return queue.textChannel.send("**Queue finished**").catch(console.error);
         }
         
         try{
@@ -20,7 +20,7 @@ module.exports = {
                 module.exports.play(queue.songs[0], message);
             }
             if(error.message.includes === "copyright") {
-                return message.channel.send("Copyright.");
+                return message.channel.send("**Copyright.**");
             } else{
                 console.error(error);
             }
@@ -41,7 +41,7 @@ module.exports = {
         
         let embed = new MessageEmbed()
             .setColor(red_light)
-            .setTitle(':musical_note: **Now Playing**')
+            .setTitle(':musical_note: **Now Playing** :musical_note:')
             .setDescription(`[${song.title}](${song.url})`)
             .setFooter(`© ${message.guild.me.displayName}`, message.client.user.displayAvatarURL());
 

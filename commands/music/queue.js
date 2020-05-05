@@ -25,7 +25,7 @@ module.exports = {
     },
     config: {
         name: 'queue',
-        description: 'Skips the current song',
+        description: 'Displays the songs in the music queue',
         usage: '!queue',
         category: 'music',
         accessableby: 'Members',

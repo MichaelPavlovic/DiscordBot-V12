@@ -17,7 +17,7 @@ module.exports = {
         
         let embed = new MessageEmbed()
             .setColor(red_light)
-            .setTitle(':musical_note: **Now Playing**')
+            .setTitle(':musical_note: **Now Playing** :musical_note:')
             .setDescription(`[${serverQueue.songs[0].title}](${serverQueue.songs[0].url})`)
             .addField('Duration', `${serverQueue.songs[0].duration}`, true)
             .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
