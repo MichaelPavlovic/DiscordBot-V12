@@ -24,8 +24,26 @@ module.exports = {
             .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
             
             return message.channel.send(embed);    
+        } else if (args[0] === "state"){
+            let state = args.slice(1).join(' ');
+
+            let corona = await track.states(state);
+            
+            let embed = new MessageEmbed()
+            .setTitle(`${corona.state}`)
+            .setColor(green_dark)
+            .addField("Total Cases", corona.cases, true)
+            .addField("Total Deaths", corona.deaths, true)
+            .addField("Today's Cases", corona.todayCases, true)
+            .addField("Today's Deaths", corona.todayDeaths, true)
+            .addField("Active Cases", corona.active, true)
+            .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
+            
+            return message.channel.send(embed) ;
         } else {
-            let corona = await track.countries(args[0]);
+            let country = args.slice(0).join(' ');
+
+            let corona = await track.countries(country);
             
             let embed = new MessageEmbed()
             .setTitle(`${corona.country}`)

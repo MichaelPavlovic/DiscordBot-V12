@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const { blue_light } = require("../../colours.json");
+const { blue_dark } = require("../../colours.json");
 
 module.exports = async (client, message) => {
     if(!message.partial) {
@@ -18,12 +18,12 @@ module.exports = async (client, message) => {
             }
 
             const embed = new MessageEmbed()
-                .setColor(blue_light)
-                .setTitle('Deleted Message')
-                .addField('Deleted by:', `${user} ** **`, true)
-                .addField('Author', `${message.author.tag} (${message.author.id})`, true)
-                .addField('Channel', `${message.channel.name} (${message.channel.id})`, true)
-                .setDescription(message.content + '** **')
+                .setColor(blue_dark)
+                .setTitle(`Message Deleted by ${user}`)
+                .addField('Author', `${message.author}`, true)
+                .addField('Server', `${message.guild.name}`, true)
+                .addField('Channel', `${message.channel.name}`, true)
+                .setDescription(`${message.content} ** **`)
                 .setTimestamp()
                 .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
 

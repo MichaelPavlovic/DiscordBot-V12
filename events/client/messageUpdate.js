@@ -10,11 +10,10 @@ module.exports = async (client, oldMessage, newMessage) => {
         if(channel){
             const embed = new MessageEmbed()
                 .setColor(green_light)
-                .setTitle('Edited Message')
-                .addField('Author', `${oldMessage.author.tag} (${oldMessage.author.id})`, true)
-                .addField('Channel', `${oldMessage.channel.name} (${oldMessage.channel.id})`, true)
-                .addField('Old Message', `${oldMessage.content} ** **`, true)
-                .addField('New Message', `${newMessage.content} ** **`, true)
+                .setTitle(`Message Edited by ${oldMessage.author.tag}`)
+                .addField('Server', `${oldMessage.guild.name}`, true)
+                .addField('Channel', `${oldMessage.channel.name}`, true)
+                .setDescription(`**Old Message:** ${oldMessage.content} \n **New Message:** ${newMessage.content}`)
                 .setTimestamp()
                 .setFooter(`© ${oldMessage.guild.me.displayName}`, client.user.displayAvatarURL());
 

@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js")
-const { purple_light } = require("../../colours.json");
+const { purple_dark } = require("../../colours.json");
 const randomPuppy = require('random-puppy');
 
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
       let img = await randomPuppy(rand);
       
       let embed = new MessageEmbed()
-        .setColor(purple_light)
+        .setColor(purple_dark)
         .setTitle(`From /r/${rand}`)
         .setURL(`https://reddit.com/r/${rand}`)
         .setImage(img)
