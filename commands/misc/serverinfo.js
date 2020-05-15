@@ -8,7 +8,7 @@ module.exports = {
             .setTitle("Server Info")
             .setThumbnail(message.guild.iconURL())
             .setAuthor(`${message.guild.name}`, message.guild.iconURL())
-            .addField("**Guild Owner:**", `${message.guild.owner.tag}`, true)
+            .addField("**Guild Owner:**", `${message.guild.owner}`, true)
             .addField("**Member Count:**", `${message.guild.memberCount}`, true)
             .addField("**Total Real Members**", message.guild.members.cache.filter(member => !member.user.bot).size, true)
             .addField("**Total Bots**", message.guild.members.cache.filter(member => member.user.bot).size, true)
