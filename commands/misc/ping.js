@@ -1,11 +1,13 @@
+//NOTE: Built based off of: https://github.com/MenuDocs/Discord.JS-v11.6.1-Tutorials/tree/Episode-16
+
 module.exports = {
     run: async(client, message, args, owner) => {
+        //send a message to the channel
         message.channel.send("Pinging...").then(m => {
-            let ping = m.createdTimestamp - message.createdTimestamp;
-            let choices = ["Is this really my ping", "Is it okay? I can't look", "I hope it isn't bad"];
-            let response = choices[Math.floor(Math.random() * choices.length)];
+            let ping = m.createdTimestamp - message.createdTimestamp; //calculate the ping of the bot
 
-            m.edit(`${response}: Bot latency: \`${ping}\`, API latency: \`${Math.round(client.ping)}\``);
+            //edit the message to the bot's ping and the ping to the API
+            m.edit(`Bot latency: \`${ping}\`, API latency: \`${Math.round(client.ws.ping)}\``);
         });
     },
     config: {

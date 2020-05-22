@@ -28,6 +28,7 @@
     "random-puppy": "^1.1.0",
     "simple-youtube-api": "^5.2.1",
     "urban": "^0.3.2",
+    "weather-js": "^2.0.0",
     "ytdl-core": "^2.1.1",
     "ytdl-core-discord": "^1.2.0",
     "ytpl": "^0.1.20",

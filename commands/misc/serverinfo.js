@@ -1,8 +1,10 @@
+//import
 const { MessageEmbed } = require("discord.js")
 const { cyan } = require("../../colours.json");
 
 module.exports = {
     run: async (client, message, args, owner) => {
+        //create an embed with information about the server and send it to the channel
         let embed = new MessageEmbed()
             .setColor(cyan)
             .setTitle("Server Info")

@@ -1,13 +1,18 @@
+//import
 const { MessageEmbed } = require('discord.js');
 const { blue_dark } = require("../../colours.json");
 
 module.exports = async (client, message) => {
+    //check if the message is a partial
     if(!message.partial) {
-        const channel = client.channels.cache.find(channel => channel.name === "mod-logs");
+        const channel = client.channels.cache.find(channel => channel.name === "mod-logs"); //attempt to find the channel called mod-logs
 
+        //ignore the message if it was deleted by a bot, to avoid weird behaviour
         if(message.author.bot) return;
         
+        //if the channel exists
         if(channel){
+            //find the user that deleted the message from the audit logs
             const entry = await message.guild.fetchAuditLogs({type: 'MESSAGE_DELETE'}).then(audit => audit.entries.first());
             let user = "";
 
@@ -17,6 +22,7 @@ module.exports = async (client, message) => {
                 user = message.author.username + '#' + message.author.discriminator;
             }
 
+            //create an embed with the deleted message info
             const embed = new MessageEmbed()
                 .setColor(blue_dark)
                 .setTitle(`Message Deleted by ${user}`)

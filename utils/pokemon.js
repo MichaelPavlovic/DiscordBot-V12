@@ -1,8 +1,8 @@
+//import
 const fetch = require('node-fetch');
-const url = 'https://pokeapi.co/api/v2/pokemon'
 
 async function getPokemon(pokemon){
-    let response = await fetch(`${url}/${pokemon}`);
+    let response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`); //attempt to search for the pokemon the user entered and return the response as json
 
     return response.json();
 }

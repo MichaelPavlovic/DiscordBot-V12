@@ -1,11 +1,11 @@
 const PREFIX = process.env.PREFIX;
 
-module.exports = (client, guildInvites) => {
-    console.log(client.user.tag + ' is online!');
+module.exports = (client) => {
+    console.log(client.user.tag + ' is online!'); //logs a message to the console when the bot is online
 
-    client.user.setActivity('!help', { type: 'WATCHING'}).catch(console.error);
+    //client.user.setActivity("my development!", { type: 'WATCHING'}).catch(console.error);
 
     //cycle through the activities on a set interval
-    //let activities = [ `${client.guilds.size} servers!`, `${client.channels.size} channels!`, `${client.users.size} users!` ], i = 0;
-    //setInterval(() => client.user.setActivity(`${activities[i++ % activities.length]}`, { type: "WATCHING" }), 15000);
+    let activities = [ `${client.guilds.cache.size} servers!`, `${client.channels.cache.size} channels!`, `${client.users.cache.size} users!` ], i = 0;
+    setInterval(() => client.user.setActivity(`${activities[i++ % activities.length]} | !help`, { type: "WATCHING" }), 15000);
 }

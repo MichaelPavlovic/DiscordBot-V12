@@ -1,5 +1,5 @@
-const PREFIX = process.env.PREFIX;
-const owner = process.env.OWNERID;
+const PREFIX = process.env.PREFIX; //get the prefix from the .env
+const owner = process.env.OWNERID; //get the owner id from the .env
 
 module.exports = async (client, message) => {
     if(message.author.bot || message.channel.type === "dm") return; //if the message is sent by a bot or channel type is dm return
@@ -27,9 +27,11 @@ module.exports = async (client, message) => {
     let args = message.content.slice(PREFIX.length).trim().split(/ +/g);
     let cmd = args.shift().toLowerCase();
 
+    //get the command name and aliases
     let commandFile = client.commands.get(cmd) || client.commands.get(client.aliases.get(cmd));
 
+    //if the command exists run it and pass in the following parameters
     if(commandFile){        
-        commandFile.run(client, message, args, owner); //run the command
+        commandFile.run(client, message, args, owner);
     }
 }
