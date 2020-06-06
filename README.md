@@ -1,26 +1,20 @@
-# DiscordBot
+# Discord Bot
 
-For fun project to experiment with the discord.js library and some other libraries/apis.
+For fun project to experiment with the discord.js library in a node.js environment.
 
-### Packages Used
+## Built With:
 
-- discord.js
-- common-tags
-- dateformat
-- express
-- node-fetch
-- random-puppy
-- urban
-- dotenv
-- @discordjs/opus
-- ytdl-core
-- ytdl-core-discord
-- simple-youtube-api
-
-### Hosting
-
-Project is being hosted on glitch.com
-
-In the index.js file there is code that will send a ping to the bot every 5 minutes to keep it online but this can sometimes fail. So using another method to ping the bot is a better option.
-
-By default glitch updates code changes on every keypress, so the watch.json file is for changing how often changes get updated. This is to not get your bot token disabled because discord only allows 1000 pings per day before resetting it.
+  * [discord.js v12](https://discord.js.org/#/)
+  * [common-tags](https://www.npmjs.com/package/common-tags)
+  * [dateformat](https://www.npmjs.com/package/dateformat) 
+  * [node-fetch](https://www.npmjs.com/package/node-fetch)
+  * [random-puppy](https://www.npmjs.com/package/random-puppy)
+  * [urban](https://www.npmjs.com/package/urban)
+  * [dotenv](https://www.npmjs.com/package/dotenv)
+  * [@discordjs/opus](https://www.npmjs.com/package/@discordjs/opus)
+  * [ytdl-core](https://www.npmjs.com/package/ytdl-core)
+  * [ytdl-core-discord](https://www.npmjs.com/package/ytdl-core-discord)
+  * [ytpl](https://www.npmjs.com/package/ytpl)
+  * [ytsr](https://www.npmjs.com/package/ytsr)
+  * [novel-covid](https://www.npmjs.com/package/novelcovid)
+  * [weather-js](https://www.npmjs.com/package/weather-js)
