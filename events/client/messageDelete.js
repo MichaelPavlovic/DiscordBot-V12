@@ -28,7 +28,7 @@ module.exports = async (client, message) => {
                 .setTitle(`Message Deleted by ${user}`)
                 .addField('Author', `${message.author}`, true)
                 .addField('Server', `${message.guild.name}`, true)
-                .addField('Channel', `${message.channel.name}`, true)
+                .addField('Channel', `<#${message.channel.id}>`, true)
                 .setDescription(`${message.content} ** **`)
                 .setTimestamp()
                 .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
