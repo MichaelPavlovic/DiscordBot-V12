@@ -32,7 +32,8 @@ module.exports = {
             .addField('Profile information:', stripIndents`**Username:** ${account.username}
             **Full name:** ${account.full_name}
             **Biography:** ${account.biography.length == 0 ? 'None' : account.biography}
-            **Followers:** ${account.edge_owner_to_timeline_media.count}
+            **Posts:** ${account.edge_owner_to_timeline_media.count}
+            **Followers:** ${account.edge_followed_by.count}
             **Following:** ${account.edge_follow.count}
             **Private:** ${account.is_private ? 'Yes 🔐' : 'No 🔓'}`)
             .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
