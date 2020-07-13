@@ -26,9 +26,10 @@
     "dotenv": "^8.2.0",
     "erela.js": "^1.1.8",
     "node-fetch": "^2.6.0",
-    "novelcovid": "^1.2.7",
+    "novelcovid": "^2.2.0",
     "random-puppy": "^1.1.0",
     "urban": "^0.3.2",
+    "user-instagram": "^2.0.9",
     "weather-js": "^2.0.0"
   }
 }

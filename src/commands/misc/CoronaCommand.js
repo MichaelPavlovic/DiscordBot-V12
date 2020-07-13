@@ -1,7 +1,7 @@
 const BaseCommand = require('../../utils/structures/BaseCommand');
 const { MessageEmbed } = require('discord.js');
 const { green_dark } = require("../../../colours.json");
-const api = require("novelcovid");
+const api = require('novelcovid');
 
 module.exports = class CoronaCommand extends BaseCommand {
   constructor() {
@@ -16,21 +16,23 @@ module.exports = class CoronaCommand extends BaseCommand {
 
     if(args[0] === "all") {
       //if they entered all as the first argument, get information from all countries
-      let corona = api.all();
+      await api.all().then((data) => {
+        //create an embed with the information and send it to the channel
+        let embed = new MessageEmbed()
+          .setTitle("Global Cases")
+          .setColor(green_dark)
+          .addField("Total Cases", data.cases, true)
+          .addField("Total Deaths", data.deaths, true)
+          .addField("Total Recovered", data.recovered, true)
+          .addField("Today's Cases", data.todayCases, true)
+          .addField("Today's Deaths", data.todayDeaths, true)
+          .addField("Active Cases", data.active, true)
+          .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
       
-      //create an embed with the information and send it to the channel
-      let embed = new MessageEmbed()
-        .setTitle("Global Cases")
-        .setColor(green_dark)
-        .addField("Total Cases", corona.cases, true)
-        .addField("Total Deaths", corona.deaths, true)
-        .addField("Total Recovered", corona.recovered, true)
-        .addField("Today's Cases", corona.todayCases, true)
-        .addField("Today's Deaths", corona.todayDeaths, true)
-        .addField("Active Cases", corona.active, true)
-        .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
+        return message.channel.send(embed);
+      }).catch(err => console.log(err));
       
-      return message.channel.send(embed);    
+      
     } else if (args[0] === "state"){
       //if they entered state as the first argument go into this block
 
@@ -42,22 +44,21 @@ module.exports = class CoronaCommand extends BaseCommand {
         let state = args.slice(1).join(' ');
 
         //attempt to search for that state
-        let corona = api.states(state);
-        
-        //ADD CHECK FOR IF THE STATE ACTUALLY EXISTS
-
-        //send an embed with the information
-        let embed = new MessageEmbed()
-          .setTitle(`${corona.state}`)
-          .setColor(green_dark)
-          .addField("Total Cases", corona.cases, true)
-          .addField("Total Deaths", corona.deaths, true)
-          .addField("Today's Cases", corona.todayCases, true)
-          .addField("Today's Deaths", corona.todayDeaths, true)
-          .addField("Active Cases", corona.active, true)
-          .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
-        
-        return message.channel.send(embed);
+        await api.states({state: state}).then((data) => {
+          if(data.state === undefined) return message.channel.send("Are you sure that state exists?");
+          //send an embed with the information
+          let embed = new MessageEmbed()
+            .setTitle(`${data.state}`)
+            .setColor(green_dark)
+            .addField("Total Cases", data.cases, true)
+            .addField("Total Deaths", data.deaths, true)
+            .addField("Today's Cases", data.todayCases, true)
+            .addField("Today's Deaths", data.todayDeaths, true)
+            .addField("Active Cases", data.active, true)
+            .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
+          
+          return message.channel.send(embed);
+        }).catch(err => console.log(err));
       }
     } else{
       //if they didn't enter all or state as the first search term go into this block
@@ -66,23 +67,23 @@ module.exports = class CoronaCommand extends BaseCommand {
       let country = args.slice(0).join(' ');
 
       //attempt to search for information on that country
-      let corona = api.countries(country);
-      
-      //ADD CHECK FOR IF THE COUNTRY ACTUALLY EXISTS
-
-      //create an embed with the data and send it to the channel
-      let embed = new MessageEmbed()
-        .setTitle(`${corona.country}`)
-        .setColor(green_dark)
-        .addField("Total Cases", corona.cases, true)
-        .addField("Total Deaths", corona.deaths, true)
-        .addField("Total Recovered", corona.recovered, true)
-        .addField("Today's Cases", corona.todayCases, true)
-        .addField("Today's Deaths", corona.todayDeaths, true)
-        .addField("Active Cases", corona.active, true)
-        .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
-          
-      return message.channel.send(embed) ;
+      await api.countries({country: country}).then((data) => {
+        if(data.country === undefined) return message.channel.send("Are you sure that country exists?");
+        
+        //create an embed with the data and send it to the channel
+        let embed = new MessageEmbed()
+          .setTitle(`${data.country}`)
+          .setColor(green_dark)
+          .addField("Total Cases", data.cases, true)
+          .addField("Total Deaths", data.deaths, true)
+          .addField("Total Recovered", data.recovered, true)
+          .addField("Today's Cases", data.todayCases, true)
+          .addField("Today's Deaths", data.todayDeaths, true)
+          .addField("Active Cases", data.active, true)
+          .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
+            
+        return message.channel.send(embed);
+      }).catch(err => console.log(err));
     }
   }
 }

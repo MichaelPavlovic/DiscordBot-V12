@@ -7,21 +7,27 @@ module.exports = class MessageEvent extends BaseEvent {
   
   async run(client, message) {
     if (message.author.bot) return; //ignore bot messages
-    //memes
-    if(message.content.startsWith('🤠')){
+    //
+    if(message.content.match(/🤠/i)){
       message.channel.send(':cowboy:');
     }
-    if(message.content.match(/creeper/i)){
-        message.channel.send('AWW MAN');
+    if(message.content.match(/^creeper$/i)){
+      message.channel.send('AWW MAN');
     }
     if(message.content.match(/stop cry/i)){
-        message.channel.send('stop cry :rage:');
+      message.channel.send('stop cry :rage:');
     }
-    if(message.content.startsWith('cool')){
-        message.channel.send('cool');
+    if(message.content.match(/^cool$/i)){
+      message.channel.send('cool');
     }
-    if(message.content.startsWith('wah')){
-        message.channel.send('wah wah wah');
+    if(message.content.match(/^wah$/i)){
+      message.channel.send('wah wah wah');
+    }
+    if(message.content.match(/^yo$/i)){
+      message.channel.send('yo');
+    }
+    if(message.content.match(/^peepoLeave$/i)){
+      message.channel.send('https://tenor.com/view/peepo-leave-peepo-pepe-frog-leave-gif-16095274');
     }
     if (message.content.startsWith(client.prefix)) {
       //separates the arguments to get the command name
