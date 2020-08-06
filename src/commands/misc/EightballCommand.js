@@ -11,6 +11,6 @@ module.exports = class EightballCommand extends BaseCommand {
     let replies = ['Yes', 'No', 'Ask again later']; //create an array of possible replies
     let result = Math.floor(Math.random() * replies.length); //get a random number based on the size of the array
 
-    message.reply(replies[result]); //select a random reply from the array
+    message.reply(`Walter says: ${replies[result]}`); //select a random reply from the array
   }
 }

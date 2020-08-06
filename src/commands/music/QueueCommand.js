@@ -12,22 +12,22 @@ module.exports = class QueueCommand extends BaseCommand {
     const { channel } = message.member.voice;
     if (!channel) return message.channel.send("**You need to be in a voice channel!**");
 
+    const serverQueue = message.client.queue.get(message.guild.id);
     //check if there is music playing
-    const player = client.music.players.get(message.guild.id);
-    if(!player || !player.queue[0]) return message.channel.send("**There's no music playing.**");
+    if(!serverQueue) return message.channel.send("**There's no music playing.**");
 
     //check if the user is in the same voice channel as the bot
-    if(player.voiceChannel.id === channel.id){
+    if(serverQueue.channel.id === channel.id){
       let i = 2;
       let string = "";
 
       //separate the current song from the rest of the queue for a nicely formated embed
-      if(player.queue[0]) string += `__**Currently Playing**__\n [${player.queue[0].title}](${player.queue[0].uri}) - Requested by ${player.queue[0].requester.username}. \n`;
-      if(player.queue[1]) string += `__**Queue**__\n ${player.queue.slice(1, 10).map(x => `${i++}) [${x.title}](${x.uri}) - Requested by ${x.requester.username}.`).join("\n")}`;
+      if(serverQueue.songs[0]) string += `__**Currently Playing**__\n [${serverQueue.songs[0].title}](${serverQueue.songs[0].url}) - Requested by ${serverQueue.songs[0].requester}. \n`;
+      if(serverQueue.songs[1]) string += `__**Queue**__\n ${serverQueue.songs.slice(1, 10).map(x => `${i++}) [${x.title}](${x.url}) - Requested by ${x.requester}.`).join("\n")}`;
 
       const embed = new MessageEmbed()
         .setColor(red_light)
-        .setTitle(`Queue for ${message.guild.name}`)
+        .setAuthor(`Queue for ${message.guild.name}`)
         .setThumbnail(message.guild.iconURL())
         .setDescription(string)
         .setFooter(`© ${message.guild.me.displayName}`, client.user.displayAvatarURL());
